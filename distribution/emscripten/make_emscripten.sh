@@ -37,7 +37,7 @@ emcc \
 	-s ALLOW_MEMORY_GROWTH=1 \
 	-s USE_SDL=2 \
 	-s USE_SDL_IMAGE=2 \
-	-s SDL2_IMAGE_FORMATS='["png","jpg"]' \
+	-s SDL2_IMAGE_FORMATS='["png","jpg","svg"]' \
 	-s USE_SDL_TTF=2 \
 	-s USE_SDL_MIXER=2 \
 	-s "EXPORTED_RUNTIME_METHODS=['print']" \

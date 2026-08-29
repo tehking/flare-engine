@@ -11,6 +11,7 @@ Owns the Gradle project, `app/` Java/NDK glue, and `README.android`. Engine C++ 
 - Native build is `ndk-build` on `app/src/main`, not Gradle’s generated Android.mk. `app/src/main/jni/src/Android.mk` lists engine sources as `../../../../../../src/*.cpp`.
 - `Application.mk`: `APP_ABI` armeabi-v7a arm64-v8a x86 x86_64; `APP_PLATFORM` android-16; `APP_STL` c++_static.
 - `README.android`: in `SDL2_image/Android.mk` set `SUPPORT_JPG` and `SUPPORT_WEBP` to false; in `SDL2_mixer/Android.mk` set `SUPPORT_MOD_MIKMOD` and `SUPPORT_MP3_SMPEG` to false.
+- Vendored `SDL2_image` under `jni/` may predate 2.6.0 or omit SVG. Engine SVG loading is compile-time gated on `IMG_LoadSizedSVG_RW`; PNG still loads.
 - F-Droid/Play store listing copy and screenshots live in root `fastlane/metadata/android/`.
 
 ## Work Guidance

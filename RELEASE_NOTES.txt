@@ -36,6 +36,7 @@ Engine features:
 	- Tooltips for Character menu upgrade buttons now show bonuses that will be applied to minor stats.
 
 * System
+	- Image loading supports SVG files (rasterized once at intrinsic size and cached like PNG). Requires SDL_image with SVG support; PNG still loads when SVG is unavailable.
 	- Add "Minimum Render Size" video setting.
 	- Added 'raycast_resolution' property to engine/misc.txt config.
 	- Melee-range targeting assist has been extended to work with all targeted powers. Targeting assist can be bypassed by holding Shift while attacking.

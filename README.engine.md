@@ -12,7 +12,7 @@ and harvest an engine from the common, reusable code.
 The Flare engine, which is purely a runtime, is written in C++.
 
 Flare uses simple file formats (INI-style config files) for most of the game data,
-allowing anyone to easily modify game contents. Open formats are preferred (png, ogg).
+allowing anyone to easily modify game contents. Open formats are preferred (png, svg, ogg).
 For creating maps, we support [Tiled](https://www.mapeditor.org/) with the [Flare Tiled Tools](https://github.com/flareteam/flare-tiled-tools).
 
 Originally the first game to be developed using this engine was part of this

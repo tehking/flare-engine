@@ -273,6 +273,16 @@ protected:
 	void cacheRemoveAll();
 	void windowResizeInternal();
 
+	/**
+	 * Load a file into an SDL_Surface for the Image cache.
+	 *
+	 * Bitmap formats use IMG_Load. SVG files (case-insensitive .svg) are
+	 * rasterized once at the document's intrinsic size when SDL_image 2.6.0+
+	 * provides IMG_LoadSizedSVG_RW. Older or PNG-only SDL_image builds fall
+	 * back to IMG_Load so they still compile and still load PNG.
+	 */
+	static SDL_Surface *loadImageSurface(const std::string &loc_filename);
+
 	/** Context operations */
 	virtual int createContextInternal() = 0;
 	virtual void createContextError() = 0;

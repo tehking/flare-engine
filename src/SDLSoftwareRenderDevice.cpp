@@ -636,7 +636,7 @@ Image *SDLSoftwareRenderDevice::loadImage(const std::string& filename, int error
 	// load image
 	SDLSoftwareImage *image;
 	image = NULL;
-	SDL_Surface *cleanup = IMG_Load(mods->locate(filename).c_str());
+	SDL_Surface *cleanup = loadImageSurface(mods->locate(filename));
 	if(!cleanup) {
 		if (error_type != ERROR_NONE)
 			Utils::logError("SDLSoftwareRenderDevice: Couldn't load image: '%s'. %s", filename.c_str(), IMG_GetError());
@@ -728,7 +728,7 @@ unsigned short SDLSoftwareRenderDevice::getRefreshRate() {
 int SDLSoftwareRenderDevice::loadQueuedImage(void* data) {
 	QueuedImage* image = static_cast<QueuedImage*>(data);
 	SDL_LockMutex(image->mutex);
-	image->surface = IMG_Load(image->loc_filename.c_str());
+	image->surface = loadImageSurface(image->loc_filename);
 	image->load_attempted = true;
 	SDL_CondSignal(image->loaded);
 	SDL_UnlockMutex(image->mutex);

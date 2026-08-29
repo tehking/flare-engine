@@ -668,7 +668,11 @@ Image *SDLHardwareRenderDevice::loadImage(const std::string& filename, int error
 	SDLHardwareImage *image = new SDLHardwareImage(this, renderer);
 	if (!image) return NULL;
 
-	image->surface = IMG_LoadTexture(renderer, mods->locate(filename).c_str());
+	SDL_Surface *cleanup = loadImageSurface(mods->locate(filename));
+	if (cleanup) {
+		image->surface = SDL_CreateTextureFromSurface(renderer, cleanup);
+		SDL_FreeSurface(cleanup);
+	}
 
 	if(image->surface == NULL) {
 		delete image;
@@ -753,7 +757,7 @@ unsigned short SDLHardwareRenderDevice::getRefreshRate() {
 int SDLHardwareRenderDevice::loadQueuedImage(void* data) {
 	QueuedImage* image = static_cast<QueuedImage*>(data);
 	SDL_LockMutex(image->mutex);
-	image->surface = IMG_Load(image->loc_filename.c_str());
+	image->surface = loadImageSurface(image->loc_filename);
 	image->load_attempted = true;
 	SDL_CondSignal(image->loaded);
 	SDL_UnlockMutex(image->mutex);
