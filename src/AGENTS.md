@@ -30,7 +30,7 @@ C++ FLARE runtime: SDL2 game loop, mod data loading, rendering, input, audio, co
 - Naming: `ClassName::functionName`, `ClassName::class_variable`, `local_variable`, `ENUM_OR_CONSTANT`.
 - Tabs (width 4); braces on the same line as `if` / `else` / `while` / the function signature. Javadoc-style comments on functions; avoid block comments inside functions.
 - Desktop GNU/Clang flags in root `CMakeLists.txt` include `-std=c++98`, `-fno-exceptions`, and `-Wall -Wextra` (plus the other warning flags listed there).
-- New `.cpp`/`.h` files must be added to `CMakeLists.txt` (`FLARE_SOURCES` / `FLARE_HEADERS`) and to `flare-android-project/app/src/main/jni/src/Android.mk` (`LOCAL_SRC_FILES`).
+- New `.cpp`/`.h` files must be added to `CMakeLists.txt` (`FLARE_SOURCES` / `FLARE_HEADERS`) and to `flare-android-project/app/src/main/jni/src/Android.mk` (`LOCAL_SRC_FILES`). `flare-ios-project/FLARE.xcodeproj/project.pbxproj` also lists `../src/*.cpp` individually and is not in lockstep with those two lists.
 - Optional format: repo-root `astyle_flare.sh` (`astyle -S -T4 --style=java -y src/*.[cpp,h]`). Qt Creator can import repo-root `qt.xml`. `.editorconfig` matches tab/4 for `*.{cpp,h}`.
 
 ## Verification

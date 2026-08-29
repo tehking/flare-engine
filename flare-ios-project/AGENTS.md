@@ -11,6 +11,7 @@ Xcode iOS project (`FLARE.xcodeproj`) that builds the engine for iPhone OS.
 ## Local Contracts
 - `README.md`: copy mods into `flare-engine/mods`; the Xcode project embeds the mods folder into the bundle. Tested note in that README: Mac OS X 10.9.5, Xcode 6.2.
 - Engine C++ still lives in `/src`; this folder is the iOS wrapper only.
+- `FLARE.xcodeproj/project.pbxproj` references `../src/*.cpp` by file. That list is not kept in lockstep with `CMakeLists.txt` / Android.mk (for example it has no `XPScaling.cpp`).
 - This project is not built by `.github/workflows/main.yml`.
 
 ## Work Guidance
