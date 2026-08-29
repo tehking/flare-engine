@@ -12,6 +12,7 @@ Owns all `src/*.cpp` and `src/*.h`, Windows resource `Flare.rc`, and platform ba
 - `main.cpp` selects one platform backend with preprocessor includes: `PlatformWin32.cpp`, `PlatformAndroid.cpp`, `PlatformIPhoneOS.cpp`, `PlatformGCW0.cpp`, `PlatformEmscripten.cpp`, otherwise `PlatformLinux.cpp`.
 - Non-MSVC CMake builds compile with `-std=c++98` and `-fno-exceptions`.
 - Mod-file attribute docs are tagged in source with `@CLASS`, `@ATTR`, and `@TYPE` comments consumed by root `extract_xml.sh`.
+- Image cache (`RenderDevice::loadImage`) keys on the logical filename. PNG and other SDL_image bitmaps load via `IMG_Load`. Case-insensitive `.svg` files are rasterized once at the SVG's intrinsic size (`width`/`height` or `viewBox` in game pixels) with `IMG_LoadSizedSVG_RW` when SDL_image >= 2.6.0; otherwise `IMG_Load` is used. Hardware and software renderers and the threaded image queue share `RenderDevice::loadImageSurface`. Do not tessellate SVG per frame. Builds without SVG in SDL_image must still compile and still load PNG. Android/iOS vendored SDL_image may be older than 2.6.0.
 
 ## Work Guidance
 Follow root `Codingstyle.txt`:
@@ -28,6 +29,7 @@ Follow root `Codingstyle.txt`:
 ## Verification
 - CI (`.github/workflows/main.yml`): `cmake . && make` with gcc and clang on ubuntu-24.04.
 - CI cppcheck: `cppcheck --quiet --verbose --enable=all $(git ls-files src/\*.cpp)`.
+- SVG smoke asset: `mods/default/images/logo/svg_test.svg` (64x64). With SDL_image 2.6+, loading it through `loadImage` / `IMG_LoadSizedSVG_RW` must yield a 64x64 surface. Skip this check on PNG-only SDL_image.
 
 ## Child DOX Index
 No child AGENTS.md. Skip `src/.vscode` (editor settings only).

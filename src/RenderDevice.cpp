@@ -23,7 +23,12 @@ FLARE.  If not, see http://www.gnu.org/licenses/
 #include "SharedResources.h"
 #include "UtilsMath.h"
 
+#include <SDL_image.h>
+
 #include <assert.h>
+#if defined(SDL_IMAGE_VERSION_ATLEAST) && SDL_IMAGE_VERSION_ATLEAST(2, 6, 0)
+#include <ctype.h>
+#endif
 #include <stdio.h>
 
 /*
@@ -322,6 +327,32 @@ void RenderDevice::freeImage(Image *image) {
 	if (!image) return;
 
 	cacheRemove(image);
+}
+
+SDL_Surface *RenderDevice::loadImageSurface(const std::string &loc_filename) {
+#if defined(SDL_IMAGE_VERSION_ATLEAST) && SDL_IMAGE_VERSION_ATLEAST(2, 6, 0)
+	const size_t n = loc_filename.size();
+	bool is_svg = false;
+	if (n >= 4) {
+		const char ext0 = static_cast<char>(tolower(static_cast<int>(loc_filename[n - 4])));
+		const char ext1 = static_cast<char>(tolower(static_cast<int>(loc_filename[n - 3])));
+		const char ext2 = static_cast<char>(tolower(static_cast<int>(loc_filename[n - 2])));
+		const char ext3 = static_cast<char>(tolower(static_cast<int>(loc_filename[n - 1])));
+		is_svg = ext0 == '.' && ext1 == 's' && ext2 == 'v' && ext3 == 'g';
+	}
+
+	if (is_svg) {
+		SDL_RWops *rw = SDL_RWFromFile(loc_filename.c_str(), "rb");
+		if (rw) {
+			// width=0, height=0 uses the SVG width/height (or viewBox) in game pixels
+			SDL_Surface *surface = IMG_LoadSizedSVG_RW(rw, 0, 0);
+			SDL_RWclose(rw);
+			if (surface)
+				return surface;
+		}
+	}
+#endif
+	return IMG_Load(loc_filename.c_str());
 }
 
 void RenderDevice::windowResizeInternal() {

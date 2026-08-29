@@ -41,6 +41,7 @@ Re-check changed paths, update owning docs and indexes, remove stale text, run e
 - This repository is the C++ FLARE runtime (SDL2, CMake). Default branch is `master`.
 - Pair game data lives in tehking/flare-game. Do not document or edit that repository from this work.
 - Engine-only: campaign and content mods such as `fantasycore` and `empyrean_campaign` belong in flare-game, not here.
+- Engine image loading accepts PNG (and other SDL_image bitmaps) and SVG. Do not convert Empyrean or other campaign PNG assets in this repository.
 
 ## Child DOX Index
 - `src/AGENTS.md` — C++ engine sources (`*.cpp`/`*.h`, platform backends, `Flare.rc`).

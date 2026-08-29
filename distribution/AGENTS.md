@@ -9,7 +9,7 @@ Owns files under `distribution/`. CMake install rules in root `CMakeLists.txt` c
 ## Local Contracts
 - CMake configure writes `flare.desktop` from `flare.desktop.in`. Install destinations: man page `flare.man` → `man6/flare.6`; icon `flare_logo_icon.svg` → `share/icons/hicolor/scalable/apps/flare.svg`.
 - `nsis_script.nsi` must not be run from this directory. It is copied to a staging dir that also includes `flare.exe`, SDL DLLs, and flare-game files (`CREDITS.txt`, `LICENSE.txt`, `README.md`, `mods/fantasycore`, `mods/empyrean_campaign`, and related mods listed in the script header).
-- `emscripten/make_emscripten.sh` requires a path to flare-game, copies `fantasycore` and `empyrean_campaign` into `mods/`, and writes output under gitignored `emscripten/`.
+- `emscripten/make_emscripten.sh` requires a path to flare-game, copies `fantasycore` and `empyrean_campaign` into `mods/`, and writes output under gitignored `emscripten/`. `SDL2_IMAGE_FORMATS` is `png`, `jpg`, and `svg` (Emscripten SDL2_image 2.6.0 port includes nanosvg when `svg` is listed).
 - `linux/package_steamrt.sh` optionally takes a flare-game path; without it, it packages engine + `mods/default` only.
 - `macos/README.txt`: DMG creation scripts live in https://github.com/flareteam/flare-dmg, not here.
 - `create_release_tarball.sh` archives `HEAD` as `flare-engine-$(git describe --tags).tar.gz`.
